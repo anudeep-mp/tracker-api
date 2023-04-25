@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/anudeep-mp/tracker/database"
 	"github.com/anudeep-mp/tracker/helper"
 	"github.com/anudeep-mp/tracker/model"
 	"github.com/anudeep-mp/tracker/utilities"
@@ -15,6 +16,10 @@ func ServeHomeHandler(w http.ResponseWriter, r *http.Request) {
 
 func WatchStampHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+
+	envionment := r.Header.Get("Environment")
+
+	database.UpdateCollection(envionment)
 
 	var watchStamp model.WatchStamp
 
@@ -30,6 +35,10 @@ func WatchStampHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "GET")
+
+	envionment := r.Header.Get("Environment")
+
+	database.UpdateCollection(envionment)
 
 	var users []model.UserStamp
 
@@ -50,6 +59,10 @@ func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 
 func DeleteAllWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+
+	envionment := r.Header.Get("Environment")
+
+	database.UpdateCollection(envionment)
 
 	err := helper.DeleteAllWatchStamps()
 
