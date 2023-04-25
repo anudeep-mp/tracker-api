@@ -22,8 +22,9 @@ func PostWatchStamp(watchStamp model.WatchStamp) (model.UserStamp, error) {
 	if databaseErr == mongo.ErrNoDocuments {
 		//if documnet if not available, create a new one
 		user = model.UserStamp{
-			UserID:   watchStamp.UserID,
-			Sessions: make([]model.SessionStamp, 0),
+			UserID:    watchStamp.UserID,
+			Sessions:  make([]model.SessionStamp, 0),
+			CreatedAt: watchStamp.TimeStamp,
 		}
 
 		user = updateSession(watchStamp, user)

@@ -40,7 +40,12 @@ func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utilities.ResponseWrapper(w, http.StatusOK, true, "Users fetched successfully", users)
+	result := model.GetWatchStampsResponse{
+		UserCount: len(users),
+		Users:     users,
+	}
+
+	utilities.ResponseWrapper(w, http.StatusOK, true, "Users fetched successfully", result)
 }
 
 func DeleteAllWatchStampsHandler(w http.ResponseWriter, r *http.Request) {

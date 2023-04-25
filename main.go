@@ -16,7 +16,7 @@ func main() {
 	routeHandler := router.Router()
 
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:7777", "https://anufolio-2point0.netlify.app", "https://anudeep-m.netlify.app"},
+		AllowedOrigins: []string{"http://localhost:7777", "https://anufolio-2point0.netlify.app", "https://anudeep-m.netlify.app", "http://localhost:5173"},
 	})
 
 	handler := corsHandler.Handler(routeHandler)

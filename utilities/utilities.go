@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/anudeep-mp/tracker/model"
 )
 
 func CheckError(err error) {
@@ -12,20 +14,14 @@ func CheckError(err error) {
 	}
 }
 
-type APIResponse struct {
-	Success bool        `json:"isSuccess"`
-	Message string      `json:"message,omitempty"`
-	Data    interface{} `json:"data,omitempty"`
-}
-
-func ResponseWrapper(w http.ResponseWriter, status int, success bool, message string, data interface{}) {
+func ResponseWrapper(w http.ResponseWriter, status int, success bool, message string, result interface{}) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(status)
 
-	response := APIResponse{
+	response := model.APIResponse{
 		Success: success,
 		Message: message,
-		Data:    data,
+		Result:  result,
 	}
 
 	if err := json.NewEncoder(w).Encode(response); err != nil {
