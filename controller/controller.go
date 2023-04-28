@@ -83,7 +83,7 @@ func DeleteWatchStampHandler(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 
-	err := helper.DeleteWatchStamp(params["userId"])
+	err := helper.DeleteWatchStamp(params["id"])
 
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

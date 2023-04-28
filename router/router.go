@@ -12,7 +12,7 @@ func Router() *mux.Router {
 	router.HandleFunc("/api/track", controller.WatchStampHandler).Methods("POST")
 	router.HandleFunc("/api/watchstamps", controller.GetWatchStampsHandler).Methods("GET")
 	router.HandleFunc("/api/watchstamps", controller.DeleteAllWatchStampsHandler).Methods("DELETE")
-	router.HandleFunc("/api/watchstamp/{userId}", controller.DeleteWatchStampHandler).Methods("DELETE")
+	router.HandleFunc("/api/watchstamp/{id}", controller.DeleteWatchStampHandler).Methods("DELETE")
 
 	return router
 }
