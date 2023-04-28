@@ -40,7 +40,7 @@ func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 
 	database.UpdateCollection(envionment)
 
-	var users []model.UserStamp
+	var users []model.ResponseUserStamp
 
 	users, err := helper.GetWatchStamps()
 
@@ -49,7 +49,7 @@ func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := model.GetWatchStampsResponse{
+	result := model.ResponseWatchStamp{
 		UserCount: len(users),
 		Users:     users,
 	}

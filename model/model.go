@@ -27,7 +27,27 @@ type APIResponse struct {
 	Result  interface{} `json:"result,omitempty"`
 }
 
-type GetWatchStampsResponse struct {
-	UserCount int         `json:"userCount"`
-	Users     []UserStamp `json:"users"`
+type ResponseWatchStamp struct {
+	UserCount int                 `json:"userCount"`
+	Users     []ResponseUserStamp `json:"users"`
+}
+
+type ResponseUserStamp struct {
+	ID             primitive.ObjectID     `json:"id" bson:"_id,omitempty"`
+	UserID         string                 `json:"userId" bson:"userId"`
+	CreatedAt      string                 `json:"createdAt"`
+	LastSeenAt     string                 `json:"lastSeenAt"`
+	TotalTimeSpent int                    `json:"totalTimeSpent"`
+	SessionCount   int                    `json:"sessionCount"`
+	Sessions       []ResponseSessionStamp `json:"sessions"`
+}
+
+type ResponseSessionStamp struct {
+	UserID           string   `json:"userId" bson:"userId"`
+	SessionID        string   `json:"sessionId" bson:"sessionId"`
+	Timestamps       []string `json:"timeStamps"`
+	TimestampsCount  int      `json:"timeStampsCount"`
+	SessionStartedAt string   `json:"sessionStartedAt"`
+	SessionEndedAt   string   `json:"sessionEndedAt"`
+	SessionDuration  int      `json:"sessionDuration"`
 }
