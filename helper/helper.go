@@ -160,3 +160,12 @@ func DeleteAllWatchStamps() error {
 	}
 	return nil
 }
+
+func DeleteWatchStamp(userId string) error {
+	_, err := database.TrackingCollection.DeleteOne(context.Background(), bson.M{"userId": userId})
+
+	if err != nil {
+		return fmt.Errorf("failed to delete userstamp: %w", err)
+	}
+	return nil
+}

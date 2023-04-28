@@ -8,6 +8,7 @@ import (
 	"github.com/anudeep-mp/tracker/helper"
 	"github.com/anudeep-mp/tracker/model"
 	"github.com/anudeep-mp/tracker/utilities"
+	"github.com/gorilla/mux"
 )
 
 func ServeHomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -17,9 +18,9 @@ func ServeHomeHandler(w http.ResponseWriter, r *http.Request) {
 func WatchStampHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "POST")
 
-	envionment := r.Header.Get("Environment")
+	environment := r.Header.Get("Environment")
 
-	database.UpdateCollection(envionment)
+	database.UpdateCollection(environment)
 
 	var watchStamp model.WatchStamp
 
@@ -36,9 +37,9 @@ func WatchStampHandler(w http.ResponseWriter, r *http.Request) {
 func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "GET")
 
-	envionment := r.Header.Get("Environment")
+	environment := r.Header.Get("Environment")
 
-	database.UpdateCollection(envionment)
+	database.UpdateCollection(environment)
 
 	var users []model.ResponseUserStamp
 
@@ -60,9 +61,9 @@ func GetWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 func DeleteAllWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
-	envionment := r.Header.Get("Environment")
+	environment := r.Header.Get("Environment")
 
-	database.UpdateCollection(envionment)
+	database.UpdateCollection(environment)
 
 	err := helper.DeleteAllWatchStamps()
 
@@ -71,4 +72,22 @@ func DeleteAllWatchStampsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utilities.ResponseWrapper(w, http.StatusOK, true, "All users deleted successfully", nil)
+}
+
+func DeleteWatchStampHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
+
+	environment := r.Header.Get("Environment")
+
+	database.UpdateCollection(environment)
+
+	params := mux.Vars(r)
+
+	err := helper.DeleteWatchStamp(params["userId"])
+
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
+
+	utilities.ResponseWrapper(w, http.StatusOK, true, "User deleted successfully", nil)
 }

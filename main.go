@@ -18,6 +18,7 @@ func main() {
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:7777", "https://anufolio-2point0.netlify.app", "https://anudeep-m.netlify.app", "http://localhost:5173", "https://folio-tracker.netlify.app"},
 		AllowedHeaders: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "DELETE", "OPTIONS"},
 	})
 
 	handler := corsHandler.Handler(routeHandler)
