@@ -33,9 +33,11 @@ func init() {
 }
 
 func UpdateCollection(environment string) {
-	if environment == "uat" {
+	if environment == "uat-eol" {
 		TrackingCollection = (*mongo.Collection)(clientPointer.Database(constants.DB_NAME_UAT).Collection(constants.TRACKING_COLLECTION_NAME))
-	} else if environment == "prod" {
+	} else if environment == "uat" {
 		TrackingCollection = (*mongo.Collection)(clientPointer.Database(constants.DB_NAME_PROD).Collection(constants.TRACKING_COLLECTION_NAME))
+	} else if environment == "prod" {
+		TrackingCollection = (*mongo.Collection)(clientPointer.Database(constants.DB_NAME_OFFICIAL).Collection(constants.TRACKING_COLLECTION_NAME))
 	}
 }
